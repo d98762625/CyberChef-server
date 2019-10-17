@@ -1,0 +1,23 @@
+name: node version test
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    # Job name is Greeting
+    name: Greeting
+    # This job runs on Linux
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10, 12]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js version ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with: 
+          node-version: ${{ matrix.node }}
+      - name: Run unit tests
+        run: |
+          npm test
